@@ -9,8 +9,39 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class InputMapping {
-
 	private static final Logger LOGGER = Logger.getLogger(InputMapping.class.getName());
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+
+	public MapSize getMapSize() {
+		return mapSize;
+	}
+
+	public void setMapSize(MapSize mapSize) {
+		this.mapSize = mapSize;
+	}
+
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
+	public BuildingCost getBuildingCost() {
+		return buildingCost;
+	}
+
+	public void setBuildingCost(BuildingCost buildingCost) {
+		this.buildingCost = buildingCost;
+	}
 
 	public static class Customer {
 		public int x;
@@ -104,13 +135,17 @@ public class InputMapping {
 
 	private List<Customer> customers;
 	private MapSize mapSize;
+	private List<Service> services;
+	private BuildingCost buildingCost;
 
-	public InputMapping(MapSize mapSize) {
+	public InputMapping(List<Customer> customers, MapSize mapSize, List<Service> services, BuildingCost buildingCost) {
+		this.customers = customers;
 		this.mapSize = mapSize;
+		this.services = services;
+		this.buildingCost = buildingCost;
 	}
 
-	public static void read(Reader reader) throws ValidationException {
-//		public static InputMapping read(Reader reader) {
+	public static InputMapping read(Reader reader) throws ValidationException{
 		Scanner sc = new Scanner(reader);
 
 		System.out.println("parsing map info:");
@@ -129,29 +164,8 @@ public class InputMapping {
 		List<Service> services = getServices(sc, mapSize.servicesNumber);
 
 
-
-//		List<MapSize> mapSize = new ArrayList<MapSize>(length);
-//		List<Pair> pairs = new ArrayList<Pair>(length);
-
-
-//		for (int i = 0; i < 5 ; i++) {
-//
-//		}
-
-//		// Next N lines: pairs
-//		for(int i = 0; i < length; i++)
-//		{
-//			String[] pair = sc.nextLine().split(" ");
-//
-//			int op1 = Integer.parseInt(pair[0]);
-//			int op2 = Integer.parseInt(pair[1]);
-//
-//			pairs.add(new Pair(op1, op2));
-//		}
-
 		sc.close();
-
-//		return new InputMapping(mapSize);
+		return new InputMapping(customerOffices, mapSize, services, buildingCost);
 	}
 
 	private static List<Service> getServices(Scanner sc, int servicesNumber) throws ValidationException {

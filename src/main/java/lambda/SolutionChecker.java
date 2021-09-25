@@ -24,23 +24,31 @@ public class SolutionChecker {
 
 	private static final Logger LOGGER = Logger.getLogger(SolutionChecker.class.getName());
 
-	public static void validate(PairContainer pairContainer, Reader solutionReader) throws ValidationException {
+	public static void validate(InputMapping inputMapping, Reader solutionReader) throws ValidationException {
 		LOGGER.info("Validation: Begin");
 
 		// Parse the solution file
 		LOGGER.info("Validation: Read solution");
-		Solution solution = Solution.read(pairContainer.getPairs().size(), solutionReader);
-
-
-		// Check if the result is equal to the multiplication of the pair operands
-		for(int i = 0; i < pairContainer.getPairs().size(); i++) {
-			PairContainer.Pair pair = pairContainer.getPairs().get(i);
-			long result = solution.getValues().get(i);
-			if(result != pair.op1 * pair.op2) {
-				throw new ValidationException(ValidationException.Category.CONSTRAINTS, "Result is wrong");
-			}
-		}
+		checkConstraints(inputMapping);
+//		Solution solution = Solution.read(pairContainer.getPairs().size(), solutionReader);
+//
+//
+//		// Check if the result is equal to the multiplication of the pair operands
+//		for(int i = 0; i < pairContainer.getPairs().size(); i++) {
+//			PairContainer.Pair pair = pairContainer.getPairs().get(i);
+//			long result = solution.getValues().get(i);
+//			if(result != pair.op1 * pair.op2) {
+//				throw new ValidationException(ValidationException.Category.CONSTRAINTS, "Result is wrong");
+//			}
+//		}
 		LOGGER.info("Validation: End");
+	}
+
+	private static void checkConstraints(InputMapping inputMapping) throws ValidationException {
+		System.out.println(inputMapping.getCustomers().size());
+		if (inputMapping.getCustomers().size() > 500 || inputMapping.getCustomers().size() < 0 ) {
+			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " Customer number not regular");
+		}
 	}
 
 	public static long score(PairContainer pairContainer, Reader solutionReader) throws Exception {
