@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.ValidationException;
 import lambda.SolutionChecker;
 import lambda.Utils;
 import org.apache.commons.io.input.BOMInputStream;
@@ -24,9 +25,9 @@ public class UtilsTestCases {
 		customers.add(customer2);
 		customers.add(customer3);
 
-		System.out.println(Utils.getCustomerReward(customers,1,2));
+		System.out.println(Utils.getCustomerReward(customers,new Point(1,2)));
 //		System.out.println(Utils.getCustomerReward(customers,1,4));
-		System.out.println(Utils.getCustomerReward(customers,7,2));
+		System.out.println(Utils.getCustomerReward(customers,new Point(7,2)));
 
 	}
 
@@ -35,6 +36,21 @@ public class UtilsTestCases {
 		Point p1 = new Point(2,3);
 		Point p2 = new Point(7,9);
 		System.out.println(Utils.getDistance(p1,p2));
+
+	}
+
+	@Test
+	public void getUtility() throws ValidationException {
+		List<InputMapping.Service> services = new ArrayList<>();
+		InputMapping.Service service1 = new InputMapping.Service(1,2,10);
+		InputMapping.Service service2 = new InputMapping.Service(3,2,10);
+		InputMapping.Service service3 = new InputMapping.Service(7,2,10);
+		services.add(service3);
+		services.add(service2);
+		services.add(service1);
+
+		System.out.println(Utils.getServiceUtils(services,new Point(1,2)));
+		System.out.println(Utils.getServiceUtils(services,new Point(7,2)));
 
 	}
 }
