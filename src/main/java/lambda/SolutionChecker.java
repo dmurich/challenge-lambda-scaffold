@@ -31,23 +31,22 @@ public class SolutionChecker {
 		LOGGER.info("Validation: Read solution");
 		checkConstraints(inputMapping);
 //		Solution solution = Solution.read(pairContainer.getPairs().size(), solutionReader);
-//
-//
-//		// Check if the result is equal to the multiplication of the pair operands
-//		for(int i = 0; i < pairContainer.getPairs().size(); i++) {
-//			PairContainer.Pair pair = pairContainer.getPairs().get(i);
-//			long result = solution.getValues().get(i);
-//			if(result != pair.op1 * pair.op2) {
-//				throw new ValidationException(ValidationException.Category.CONSTRAINTS, "Result is wrong");
-//			}
-//		}
+
 		LOGGER.info("Validation: End");
 	}
 
 	private static void checkConstraints(InputMapping inputMapping) throws ValidationException {
-		System.out.println(inputMapping.getCustomers().size());
 		if (inputMapping.getCustomers().size() > 500 || inputMapping.getCustomers().size() < 0 ) {
 			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " Customer number not regular");
+		}
+		if (inputMapping.getMapSize().width > 2000 || inputMapping.getMapSize().width < 0 ) {
+			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " width of the matrix not regular");
+		}
+		if (inputMapping.getMapSize().height > 2000 || inputMapping.getMapSize().height < 0 ) {
+			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " height of the matrix not regular");
+		}
+		if (inputMapping.getMapSize().maximalDistanceFromService > 2000 || inputMapping.getMapSize().maximalDistanceFromService < 0 ) {
+			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " distance to service not regular");
 		}
 	}
 

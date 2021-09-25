@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class InputMapping {
 	private static final Logger LOGGER = Logger.getLogger(InputMapping.class.getName());
-
+	private static final String LogPrefix = "InputManager | ";
 	public List<Customer> getCustomers() {
 		return customers;
 	}
@@ -162,25 +162,23 @@ public class InputMapping {
 	public static InputMapping read(Reader reader) throws ValidationException{
 		Scanner sc = new Scanner(reader);
 
-		System.out.println("parsing map info:");
+		LOGGER.info(LogPrefix+"parsing map info:");
 		MapSize mapSize = getMapInfo(sc);
-		System.out.println(mapSize.toString());
+		LOGGER.info(LogPrefix+ mapSize.toString());
 
-		System.out.println("parsing building costs:");
+		LOGGER.info(LogPrefix+"parsing building costs:");
 		BuildingCost buildingCost = getBuildingCost(sc);
-		System.out.println(buildingCost.toString());
+		LOGGER.info(LogPrefix+ buildingCost.toString());
 
 
-		System.out.println("parsing customer offices:");
+		LOGGER.info(LogPrefix+"parsing customer offices:");
 		List<Customer> customerOffices = getCustomerOffices(sc, mapSize.customersNumber);
 
-		System.out.println("parsing services:");
+		LOGGER.info(LogPrefix+"parsing services:");
 		List<Service> services = getServices(sc, mapSize.servicesNumber);
 
-		System.out.println("Evaluating map:");
+		LOGGER.info(LogPrefix+ "Evaluating map:");
 		Terrain[][] matrix = getMatrixFromInput(sc, mapSize.width, mapSize.height);
-
-
 
 		sc.close();
 		return new InputMapping(matrix,customerOffices, mapSize, services, buildingCost);
@@ -195,7 +193,7 @@ public class InputMapping {
 				String line = sc.nextLine();
 				char[] chars = line.toCharArray();
 				int widthCounter = 0;
-				System.out.println("Scanning line number "+ String.valueOf(heightCounter));
+				LOGGER.info(LogPrefix+"Scanning line number "+ String.valueOf(heightCounter));
 				for (char ch: chars) {
 					matrix[heightCounter][widthCounter] = Terrain.valueOf(ch);
 					widthCounter = widthCounter + 1;
@@ -224,7 +222,7 @@ public class InputMapping {
 				Service service = new Service(Integer.parseInt(servicesInfo[0]),
 						Integer.parseInt(servicesInfo[1]),
 						Integer.parseInt(servicesInfo[2]));
-				System.out.println("new service: "+ service.toString());
+				LOGGER.info(LogPrefix+"new service: "+ service.toString());
 				services.add(service);
 
 			}
@@ -250,7 +248,7 @@ public class InputMapping {
 				Customer customer = new Customer(Integer.parseInt(customerInfos[0]),
 						Integer.parseInt(customerInfos[1]),
 						Integer.parseInt(customerInfos[2]));
-				System.out.println("new customer: "+ customer.toString());
+				LOGGER.info(LogPrefix+"new customer: "+ customer.toString());
 				customerOffices.add(customer);
 
 
