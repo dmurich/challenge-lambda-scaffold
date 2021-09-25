@@ -53,13 +53,15 @@ public class SolutionChecker {
 		Solution solution = Solution.read(inputMapping, solutionReader);
 
 		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getTotalCustomerInfo().getNumberOfOffices());
-		long finalScore = 0;
-		for (CustomerScore score : solution.getTotalCustomerInfo().getCustomerScores()) {
 
-			finalScore = finalScore + score.getScore();
+		long finalScore = 0;
+		for (CustomerScore customerScore : solution.getTotalCustomerInfo().getCustomerScores()) {
+			long customerLocalScore = customerScore.getCustomerReward() - customerScore.getCost();
+			long serviceScore = customerScore.getServiceUtils() - Utils.getDistance(customerScore.getReplyOffice(),customerScore.getCustomerLocation());
+			finalScore = customerLocalScore + serviceScore;
 		}
 
-		return finalScore;
+		return finalScore - totalBuildingCosts;
 	}
 
 

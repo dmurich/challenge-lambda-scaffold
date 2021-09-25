@@ -3,6 +3,41 @@ package model;
 public class CustomerScore {
     private long cost;
     private long customerReward;
+    private long serviceUtils;
+    private Point replyOffice;
+    private Point customerLocation;
+
+    public CustomerScore(long cost, long customerReward, long serviceUtils, Point replyOffice, Point customerLocation) {
+        this.cost = cost;
+        this.customerReward = customerReward;
+        this.serviceUtils = serviceUtils;
+        this.replyOffice = replyOffice;
+        this.customerLocation = customerLocation;
+    }
+
+    public Point getCustomerLocation() {
+        return customerLocation;
+    }
+
+    public void setCustomerLocation(Point customerLocation) {
+        this.customerLocation = customerLocation;
+    }
+
+    public Point getReplyOffice() {
+        return replyOffice;
+    }
+
+    public void setReplyOffice(Point replyOffice) {
+        this.replyOffice = replyOffice;
+    }
+
+    public long getServiceUtils() {
+        return serviceUtils;
+    }
+
+    public void setServiceUtils(long serviceUtils) {
+        this.serviceUtils = serviceUtils;
+    }
 
     public long getCost() {
         return cost;
@@ -24,10 +59,6 @@ public class CustomerScore {
         this.cost = cost;
     }
 
-    public CustomerScore(long cost, long customerReward) {
-        this.cost = cost;
-        this.customerReward = customerReward;
-    }
 
     public long getScore() {
         return cost;

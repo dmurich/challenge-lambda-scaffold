@@ -28,7 +28,8 @@ public class Utils {
                 return service.utilityValue;
             }
         }
-        throw  new ValidationException(ValidationException.Category.GENERIC,"NO SERVICES FOUND IN THIS POSITION");
+        return 0;
+//        throw  new ValidationException(ValidationException.Category.GENERIC,"NO SERVICES FOUND IN THIS POSITION");
     }
 
     public static int getTotalBuildingCosts(InputMapping inputMapping, int numberOfoffices) {

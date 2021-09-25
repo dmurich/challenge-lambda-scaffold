@@ -56,9 +56,10 @@ public class OutputMapping {
 
 //    TODO retrieve the cost and the customer we reached
     public static CustomerScore travelThePath(String path, InputMapping inputMapping, int x, int y) throws ValidationException {
-
+        Point replyOffice = new Point(x,y);
         checkMountain(x, y, inputMapping.getMatrix());
         long cost = 0;
+        long serviceUtils = 0;
         for (int i = 0; i < path.length(); i++) {
             switch (path.charAt(i)) {
                 case 'U':
@@ -76,10 +77,17 @@ public class OutputMapping {
                 default:
                     throw new ValidationException(GENERIC, "The wrong symbol in the path. It should be 'R', 'L', 'U' or 'D'");
             }
+            serviceUtils = serviceUtils + Utils.getServiceUtils(inputMapping.getServices(), new Point(x,y));
+
             checkMountain(x, y, inputMapping.getMatrix());
             cost += inputMapping.getMatrix()[y][x].value;
         }
-        return new CustomerScore(cost, Utils.getCustomerReward(inputMapping.getCustomers(),new Point(x,y)));
+        Point customerPoint = new Point (x,y);
+        return new CustomerScore(cost,
+                Utils.getCustomerReward(inputMapping.getCustomers(),customerPoint),
+                serviceUtils,
+                replyOffice,
+                customerPoint);
     }
     public static void checkMountain(int x, int y, Terrain[][] map) throws ValidationException {
         if (map[y][x] == Terrain.Mountains) {
