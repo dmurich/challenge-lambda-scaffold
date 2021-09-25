@@ -5,6 +5,9 @@ import org.junit.Assert;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.io.input.BOMInputStream;
 
 import lambda.SolutionChecker;
@@ -54,5 +57,15 @@ public class TestCases {
 			System.out.println(score);
 			//Assert.assertEquals(-3, score);
 		}
+	}
+
+	@Test
+	public void testSet() throws Exception {
+		Set<Point> offices = new HashSet<>();
+		offices.add(new Point(1,1));
+		offices.add(new Point(1,1));
+		offices.add(new Point(100000,100000));
+		offices.add(new Point(100000,100000));
+		System.out.println(offices);
 	}
 }

@@ -4,9 +4,7 @@ import exceptions.ValidationException;
 import lambda.Utils;
 
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static exceptions.ValidationException.Category.CONSTRAINTS;
@@ -39,8 +37,10 @@ public class OutputMapping {
     }
 
     private static List<CustomerScore> customerCosts = new ArrayList<>();
+    private static Set<Point> offices = new HashSet<>();
 //TODO retrieve also the numberofOffices and refactor actual score into cost
-    public static List<CustomerScore> read(InputMapping inputMapping, Reader reader) throws ValidationException {
+    public static TotalCustomerInfo read(InputMapping inputMapping, Reader reader) throws ValidationException {
+
         Scanner sc = new Scanner(reader);
 
         OutStruct outputLine;
@@ -49,15 +49,16 @@ public class OutputMapping {
             System.out.println(outputLine);
             CustomerScore customerScore = travelThePath(outputLine.path, inputMapping, outputLine.positionX, outputLine.positionY);
             customerCosts.add(customerScore);
+            offices.add(new Point(outputLine.positionX, outputLine.positionY));
         }
-        return customerCosts;
+        return new TotalCustomerInfo(customerCosts, offices.size());
     }
 
 //    TODO retrieve the cost and the customer we reached
     public static CustomerScore travelThePath(String path, InputMapping inputMapping, int x, int y) throws ValidationException {
 
         checkMountain(x, y, inputMapping.getMatrix());
-        int cost = 0;
+        long cost = 0;
         for (int i = 0; i < path.length(); i++) {
             switch (path.charAt(i)) {
                 case 'U':

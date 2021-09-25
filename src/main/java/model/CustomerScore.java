@@ -1,35 +1,35 @@
 package model;
 
 public class CustomerScore {
-    private int cost;
-    private int customerReward;
+    private long cost;
+    private long customerReward;
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
-    public int getCustomerReward() {
+    public long getCustomerReward() {
         return customerReward;
     }
 
-    public void setCustomerReward(int customerReward) {
+    public void setCustomerReward(long customerReward) {
         this.customerReward = customerReward;
     }
 
-    public void setScore(int cost) {
+    public void setScore(long cost) {
         this.cost = cost;
     }
 
-    public CustomerScore(int cost, int customerReward) {
+    public CustomerScore(long cost, long customerReward) {
         this.cost = cost;
         this.customerReward = customerReward;
     }
 
-    public int getScore() {
+    public long getScore() {
         return cost;
     }
 }

@@ -13,32 +13,28 @@ public class Solution {
 
     private static final Logger LOGGER = Logger.getLogger(Solution.class.getName());
 
-    private List<CustomerScore> scores;
-    private int numberOfoffices;
+    private TotalCustomerInfo totalCustomerInfo;
 
-    public int getNumberOfoffices() {
-        return numberOfoffices;
+    public Solution(TotalCustomerInfo totalCustomerInfo) {
+        this.totalCustomerInfo = totalCustomerInfo;
     }
-
-    public Solution(List<CustomerScore> scores, int numberOfoffices) {
-        this.scores = scores;
-        this.numberOfoffices = numberOfoffices;
-    }
-
-    public List<CustomerScore> getScores() {
-        return scores;
-    }
-
 
     public static Solution read(InputMapping inputMapping, Reader reader) throws ValidationException {
         Scanner sc = new Scanner(reader);
         try {
-            List<CustomerScore> scores = OutputMapping.read(inputMapping,reader);
+            TotalCustomerInfo totalCustomerInfo = OutputMapping.read(inputMapping,reader);
             sc.close();
-            return new Solution(scores,1);
+            return new Solution(totalCustomerInfo);
         } catch(NoSuchElementException | NumberFormatException e) {
             throw new ValidationException(ValidationException.Category.SOLUTION_FORMAT, e.getMessage());
         }
     }
 
+    public TotalCustomerInfo getTotalCustomerInfo() {
+        return totalCustomerInfo;
+    }
+
+    public void setTotalCustomerInfo(TotalCustomerInfo totalCustomerInfo) {
+        this.totalCustomerInfo = totalCustomerInfo;
+    }
 }

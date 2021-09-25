@@ -52,8 +52,8 @@ public class InputMapping {
 	}
 
 	public static class Customer {
-		public int x;
-		public int y;
+		public long x;
+		public long y;
 		public int reward;
 
 		@Override
@@ -65,7 +65,7 @@ public class InputMapping {
 					'}';
 		}
 
-		Customer(int x, int y, int reward) {
+		Customer(long x, long y, int reward) {
 			this.x = x;
 			this.y = y;
 			this.reward = reward;
@@ -76,7 +76,7 @@ public class InputMapping {
 		public int width;
 		public int height;
 		public int customersNumber;
-		public int maximalDistanceFromService;
+		public long maximalDistanceFromService;
 		public int servicesNumber;
 
 		@Override

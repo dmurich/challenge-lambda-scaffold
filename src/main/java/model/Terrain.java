@@ -9,10 +9,10 @@ public enum Terrain {
     TrafficJam(200, '*'),
     Water(800, '~'),
     Mountains(-1, '#');
-    public int value;
+    public long value;
     public char character;
 
-    Terrain(int value, char character) {
+    Terrain(long value, char character) {
         this.value = value;
         this.character = character;
     }

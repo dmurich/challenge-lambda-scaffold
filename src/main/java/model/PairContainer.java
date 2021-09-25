@@ -11,10 +11,10 @@ public class PairContainer {
 	private static final Logger LOGGER = Logger.getLogger(PairContainer.class.getName());
 
 	public static class Pair {
-		public int op1;
-		public int op2;
+		public long op1;
+		public long op2;
 
-		Pair(int op1, int op2) {
+		Pair(long op1, long op2) {
 			this.op1 = op1;
 			this.op2 = op2;
 		}
@@ -35,12 +35,12 @@ public class PairContainer {
 		List<Pair> pairs = new ArrayList<Pair>(length);
 
 		// Next N lines: pairs
-		for(int i = 0; i < length; i++)
+		for(long i = 0; i < length; i++)
 		{
 			String[] pair = sc.nextLine().split(" ");
 
-			int op1 = Integer.parseInt(pair[0]);
-			int op2 = Integer.parseInt(pair[1]);
+			long op1 = Integer.parseInt(pair[0]);
+			long op2 = Integer.parseInt(pair[1]);
 
 			pairs.add(new Pair(op1, op2));
 		}

@@ -52,9 +52,9 @@ public class SolutionChecker {
 		LOGGER.info("Scoring: Read solution");
 		Solution solution = Solution.read(inputMapping, solutionReader);
 
-		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getNumberOfoffices());
+		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getTotalCustomerInfo().getNumberOfOffices());
 		long finalScore = 0;
-		for (CustomerScore score : solution.getScores()) {
+		for (CustomerScore score : solution.getTotalCustomerInfo().getCustomerScores()) {
 
 			finalScore = finalScore + score.getScore();
 		}
