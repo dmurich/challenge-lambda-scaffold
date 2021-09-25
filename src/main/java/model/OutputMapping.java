@@ -18,35 +18,37 @@ public class OutputMapping {
     public static class OutStruct {
         public int positionX;
         public int positionY;
-        public String steps;
+        public String path;
 
         @Override
         public String toString() {
             return "MapSize{" +
                     "positionX=" + positionX +
                     ", positionY=" + positionY +
-                    ", steps=" + steps +
+                    ", path=" + path +
                     '}';
         }
 
-        public OutStruct(int positionX, int positionY, String steps) {
+        public OutStruct(int positionX, int positionY, String path) {
             this.positionX = positionX;
             this.positionY = positionY;
-            this.steps = steps;
+            this.path = path;
         }
     }
 
-    private static List<OutStruct> output = new ArrayList<>();
+    private static List<Score> scores = new ArrayList<>();
 
-    public static void read(Reader reader) throws ValidationException {
+    public static List<Score> read(InputMapping inputMapping, Reader reader) throws ValidationException {
         Scanner sc = new Scanner(reader);
 
         OutStruct outputLine;
         while (sc.hasNextLine()) {
             outputLine = getOutput(sc);
             System.out.println(outputLine);
-            output.add(outputLine);
+            Score score = travelThePath(outputLine.path, inputMapping.getMatrix(), outputLine.positionX, outputLine.positionY);
+            scores.add(score);
         }
+        return scores;
     }
     
     public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {

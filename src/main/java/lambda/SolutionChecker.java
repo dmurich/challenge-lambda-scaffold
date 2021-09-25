@@ -50,23 +50,18 @@ public class SolutionChecker {
 		}
 	}
 
-	public static long score(PairContainer pairContainer, Reader solutionReader) throws Exception {
+	public static long score(InputMapping inputMapping, Reader solutionReader) throws Exception {
 		LOGGER.info("Scoring: Begin");
 
 		// Parse the solution file
 		LOGGER.info("Scoring: Read solution");
-		Solution solution = Solution.read(pairContainer.getPairs().size(), solutionReader);
+		Solution solution = Solution.read(inputMapping, solutionReader);
 
-		// The score is the sum of the solution values
-		LOGGER.info("Scoring: compute score");
-		long score = 0;
-		for(int i = 0; i < solution.getValues().size(); i++) {
-			long result = solution.getValues().get(i);
-			score += result;
+		long finalScore = 0;
+		for (Score score : solution.getScores()) {
+			finalScore = finalScore + score.getScore();
 		}
 
-		LOGGER.info("Scoring: End");
-		LOGGER.info("Score: " + score);
-		return score;
+		return finalScore;
 	}
 }
