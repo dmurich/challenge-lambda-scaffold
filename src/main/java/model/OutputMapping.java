@@ -40,8 +40,7 @@ public class OutputMapping {
     private static Set<Point> offices = new HashSet<>();
     private static Set<Point> customers = new HashSet<>();
 
-//TODO retrieve also the numberofOffices and refactor actual score into cost
-    public static TotalCustomerInfo read(InputMapping inputMapping, Reader reader) throws ValidationException {
+    public static EnvironmentCollector read(InputMapping inputMapping, Reader reader) throws ValidationException {
 
         Scanner sc = new Scanner(reader);
 
@@ -53,7 +52,7 @@ public class OutputMapping {
             customerCosts.add(customerScore);
             offices.add(new Point(outputLine.positionX, outputLine.positionY));
         }
-        return new TotalCustomerInfo(customerCosts, offices.size(), customers.size());
+        return new EnvironmentCollector(customerCosts, offices, customers);
     }
 
 //    TODO retrieve the cost and the customer we reached
