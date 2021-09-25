@@ -38,7 +38,7 @@ public class OutputMapping {
     }
 
     private static List<Score> scores = new ArrayList<>();
-
+//TODO retrieve also the numberofOffices and refactor actual score into cost
     public static List<Score> read(InputMapping inputMapping, Reader reader) throws ValidationException {
         Scanner sc = new Scanner(reader);
 
@@ -51,10 +51,10 @@ public class OutputMapping {
         }
         return scores;
     }
-    
+
+//    TODO retrieve the cost and the customer we reached
     public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {
 
-        Terrain initialTerrain = map[y][x];
         checkMountain(x, y, map);
         int score = 0;
         for (int i = 0; i < path.length(); i++) {
@@ -77,7 +77,6 @@ public class OutputMapping {
             checkMountain(x, y, map);
             score += map[y][x].value;
         }
-        Terrain finalTerrain = map[y][x];
         return new Score(score);
     }
     public static void checkMountain(int x, int y, Terrain[][] map) throws ValidationException {

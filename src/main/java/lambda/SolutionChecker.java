@@ -57,7 +57,7 @@ public class SolutionChecker {
 		LOGGER.info("Scoring: Read solution");
 		Solution solution = Solution.read(inputMapping, solutionReader);
 
-		int totalBuildingCosts = getTotalBuildingCosts(inputMapping,solution.getNumberOfoffices());
+		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getNumberOfoffices());
 		long finalScore = 0;
 		for (Score score : solution.getScores()) {
 
@@ -67,9 +67,5 @@ public class SolutionChecker {
 		return finalScore;
 	}
 
-	private static int getTotalBuildingCosts(InputMapping inputMapping, int numberOfoffices) {
-		int totalU = inputMapping.getBuildingCost().u * numberOfoffices * numberOfoffices;
-		int totalV = inputMapping.getBuildingCost().v * numberOfoffices;
-		return totalU + totalV + inputMapping.getBuildingCost().w;
-	}
+
 }

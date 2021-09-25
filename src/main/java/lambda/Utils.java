@@ -31,4 +31,10 @@ public class Utils {
         throw  new ValidationException(ValidationException.Category.GENERIC,"NO SERVICES FOUND IN THIS POSITION");
     }
 
+    public static int getTotalBuildingCosts(InputMapping inputMapping, int numberOfoffices) {
+        int totalU = inputMapping.getBuildingCost().u * numberOfoffices * numberOfoffices;
+        int totalV = inputMapping.getBuildingCost().v * numberOfoffices;
+        return totalU + totalV + inputMapping.getBuildingCost().w;
+    }
+
 }

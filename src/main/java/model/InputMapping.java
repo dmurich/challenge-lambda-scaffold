@@ -296,7 +296,4 @@ public class InputMapping {
 
 	}
 
-//	public List<Pair> getPairs() {
-//		return pairs;
-//	}
 }
