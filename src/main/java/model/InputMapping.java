@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.ValidationException;
+
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,17 @@ public class InputMapping {
 		public int maximalDistanceFromService;
 		public int numberOfServices;
 
+		@Override
+		public String toString() {
+			return "MapSize{" +
+					"width=" + width +
+					", height=" + height +
+					", customerNumber=" + customerNumber +
+					", maximalDistanceFromService=" + maximalDistanceFromService +
+					", numberOfServices=" + numberOfServices +
+					'}';
+		}
+
 		public MapSize(int width, int height, int customerNumber, int maximalDistanceFromService, int numberOfServices) {
 			this.width = width;
 			this.height = height;
@@ -48,6 +61,15 @@ public class InputMapping {
 			this.v = v;
 			this.w = w;
 		}
+
+		@Override
+		public String toString() {
+			return "BuildingCost{" +
+					"u=" + u +
+					", v=" + v +
+					", w=" + w +
+					'}';
+		}
 	}
 
 	public static class Service {
@@ -63,36 +85,107 @@ public class InputMapping {
 	}
 
 	private List<Customer> customers;
+	private MapSize mapSize;
 
-	public InputMapping(List<Customer> customers) {
-		this.customers = customers;
+	public InputMapping(MapSize mapSize) {
+		this.mapSize = mapSize;
 	}
 
-	public static InputMapping read(Reader reader) {
+	public static void read(Reader reader) throws ValidationException {
+//		public static InputMapping read(Reader reader) {
 		Scanner sc = new Scanner(reader);
 
-		// First line: array lenght
-		int length = Integer.parseInt(sc.nextLine());
+		MapSize mapSize = getMapInfo(sc);
+		System.out.println(mapSize);
 
-		List<Pair> pairs = new ArrayList<Pair>(length);
+		BuildingCost buildingCost = getBuildingCost(sc);
+		System.out.println(buildingCost);
 
-		// Next N lines: pairs
-		for(int i = 0; i < length; i++)
-		{
-			String[] pair = sc.nextLine().split(" ");
+//		List<Customer> customerOffices = getCustomerOffices(sc, mapSize.customerNumber);
 
-			int op1 = Integer.parseInt(pair[0]);
-			int op2 = Integer.parseInt(pair[1]);
 
-			pairs.add(new Pair(op1, op2));
-		}
+//		List<MapSize> mapSize = new ArrayList<MapSize>(length);
+//		List<Pair> pairs = new ArrayList<Pair>(length);
+
+
+//		for (int i = 0; i < 5 ; i++) {
+//
+//		}
+
+//		// Next N lines: pairs
+//		for(int i = 0; i < length; i++)
+//		{
+//			String[] pair = sc.nextLine().split(" ");
+//
+//			int op1 = Integer.parseInt(pair[0]);
+//			int op2 = Integer.parseInt(pair[1]);
+//
+//			pairs.add(new Pair(op1, op2));
+//		}
 
 		sc.close();
 
-		return new InputMapping(pairs);
+//		return new InputMapping(mapSize);
 	}
 
-	public List<Pair> getPairs() {
-		return pairs;
+//	private static List<Customer> getCustomerOffices(Scanner sc, int customerNumber) {
+		private static void getCustomerOffices(Scanner sc, int customerNumber) {
+
+//		try {
+//
+//			for (int i = 0; i < customerNumber; i++) {
+//				String [] customerInfos = sc.nextLine().split(" ");
+//
+//			}
+//			if (buildingInfos.length != 3) {
+//				throw  new ValidationException(ValidationException.Category.GENERIC, "building cost not equal to 3");
+//			}
+//			return new BuildingCost(Integer.parseInt(buildingInfos[0]),
+//					Integer.parseInt(buildingInfos[1]),
+//					Integer.parseInt(buildingInfos[2]));
+//
+//		} catch (Exception e) {
+//			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+//		}
 	}
+
+	private static BuildingCost getBuildingCost(Scanner sc) throws ValidationException {
+		try {
+			String [] buildingInfos = sc.nextLine().split(" ");
+
+			if (buildingInfos.length != 3) {
+				throw  new ValidationException(ValidationException.Category.GENERIC, "building cost not equal to 3");
+			}
+			return new BuildingCost(Integer.parseInt(buildingInfos[0]),
+					Integer.parseInt(buildingInfos[1]),
+					Integer.parseInt(buildingInfos[2]));
+
+		} catch (Exception e) {
+			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+		}
+	}
+
+	private static MapSize getMapInfo(Scanner sc) throws ValidationException {
+		try {
+			String [] mapInfos = sc.nextLine().split(" ");
+
+			if (mapInfos.length != 5) {
+				throw  new ValidationException(ValidationException.Category.GENERIC, "map size not equal to 5");
+			}
+			return new MapSize(Integer.parseInt(mapInfos[0]),
+					Integer.parseInt(mapInfos[1]),
+					Integer.parseInt(mapInfos[2]),
+					Integer.parseInt(mapInfos[3]),
+					Integer.parseInt(mapInfos[4]));
+
+		} catch (Exception e) {
+			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+		}
+
+
+	}
+
+//	public List<Pair> getPairs() {
+//		return pairs;
+//	}
 }
