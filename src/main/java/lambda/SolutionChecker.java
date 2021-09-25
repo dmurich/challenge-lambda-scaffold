@@ -55,13 +55,24 @@ public class SolutionChecker {
 		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getTotalCustomerInfo().getNumberOfOffices());
 
 		long finalScore = 0;
+		long totalReward = 0;
+		int customerCounter = 1;
 		for (CustomerScore customerScore : solution.getTotalCustomerInfo().getCustomerScores()) {
+			totalReward = totalReward + customerScore.getCustomerReward();
 			long customerLocalScore = customerScore.getCustomerReward() - customerScore.getCost();
-			long serviceScore = customerScore.getServiceUtils() - Utils.getDistance(customerScore.getReplyOffice(),customerScore.getCustomerLocation());
+			long serviceScore = customerScore.getServiceUtils() - Utils.getDistance(customerScore.getReplyOffice(),customerScore.getCustomerLocation(), inputMapping.getMapSize().maximalDistanceFromService);
+
+//			System.out.println("for the customer counter number: "+ customerCounter + " customerLocalScore: "+ customerLocalScore + " serviceScore: "+ serviceScore);
+			System.out.println("for the customer counter number: "+ customerCounter + " serviceUtils: "+ customerScore.getServiceUtils() + " serviceScore: "+ serviceScore);
+
+			customerCounter = customerCounter + 1;
 			finalScore = customerLocalScore + serviceScore;
 		}
-//TODO add the bonus
-		return Math.max(finalScore - totalBuildingCosts, 0);
+		long bonus = 0;
+		if (solution.getTotalCustomerInfo().getNumberOfCustomers() == inputMapping.getMapSize().customersNumber){
+			bonus = totalReward;
+		}
+		return Math.max(finalScore - totalBuildingCosts + bonus, 0);
 	}
 
 

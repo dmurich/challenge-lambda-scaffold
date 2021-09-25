@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ValidationException;
+import junit.framework.Assert;
 import lambda.SolutionChecker;
 import lambda.Utils;
 import org.apache.commons.io.input.BOMInputStream;
@@ -32,10 +33,10 @@ public class UtilsTestCases {
 	}
 
 	@Test
-	public void getDistance() {
+	public void getDistance() throws ValidationException {
 		Point p1 = new Point(2,3);
 		Point p2 = new Point(7,9);
-		System.out.println(Utils.getDistance(p1,p2));
+		System.out.println(Utils.getDistance(p1,p2, 10));
 
 	}
 
@@ -49,8 +50,8 @@ public class UtilsTestCases {
 		services.add(service2);
 		services.add(service1);
 
-		System.out.println(Utils.getServiceUtils(services,new Point(1,2)));
-		System.out.println(Utils.getServiceUtils(services,new Point(7,2)));
+		Assert.assertEquals(Utils.getServiceUtils(services,new Point(1,2)),10);
+		Assert.assertEquals(Utils.getServiceUtils(services,new Point(7,2)),10);
 
 	}
 
