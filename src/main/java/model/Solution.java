@@ -17,6 +17,10 @@ public class Solution {
     private List<Score> scores;
     private int numberOfoffices;
 
+    public int getNumberOfoffices() {
+        return numberOfoffices;
+    }
+
     public Solution(List<Score> scores, int numberOfoffices) {
         this.scores = scores;
         this.numberOfoffices = numberOfoffices;
