@@ -16,4 +16,32 @@ public enum Terrain {
         this.value = value;
         this.character = character;
     }
+
+    Terrain(char character) {
+        this.character = character;
+    }
+
+    public static Terrain valueOf(char character) {
+        switch(character) {
+            case 'H':
+                return Terrain.Highway;
+            case 'T':
+                return Terrain.Railway;
+            case '_':
+                return Terrain.StandardTerrain;
+            case 'X':
+                return Terrain.RailwayLevelCrossing;
+            case '+':
+                return Terrain.Dirt;
+            case '*':
+                return Terrain.TrafficJam;
+            case '~':
+                return Terrain.Water;
+            case '#':
+                return Terrain.Mountains;
+            default:
+//                TODO default cases
+                return Terrain.Mountains;
+        }
+    }
 }

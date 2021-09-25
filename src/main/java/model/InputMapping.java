@@ -43,6 +43,14 @@ public class InputMapping {
 		this.buildingCost = buildingCost;
 	}
 
+	public Terrain[][] getMatrix() {
+		return matrix;
+	}
+
+	public void setMatrix(Terrain[][] matrix) {
+		this.matrix = matrix;
+	}
+
 	public static class Customer {
 		public int x;
 		public int y;
@@ -133,16 +141,22 @@ public class InputMapping {
 		}
 	}
 
+
+
 	private List<Customer> customers;
 	private MapSize mapSize;
 	private List<Service> services;
 	private BuildingCost buildingCost;
+	private Terrain[][] matrix;
 
-	public InputMapping(List<Customer> customers, MapSize mapSize, List<Service> services, BuildingCost buildingCost) {
+
+
+	public InputMapping(Terrain[][] matrix, List<Customer> customers, MapSize mapSize, List<Service> services, BuildingCost buildingCost) {
 		this.customers = customers;
 		this.mapSize = mapSize;
 		this.services = services;
 		this.buildingCost = buildingCost;
+		this.matrix = matrix;
 	}
 
 	public static InputMapping read(Reader reader) throws ValidationException{
@@ -163,9 +177,36 @@ public class InputMapping {
 		System.out.println("parsing services:");
 		List<Service> services = getServices(sc, mapSize.servicesNumber);
 
+		System.out.println("Evaluating map:");
+		Terrain[][] matrix = getMatrixFromInput(sc, mapSize.width, mapSize.height);
+
+
 
 		sc.close();
-		return new InputMapping(customerOffices, mapSize, services, buildingCost);
+		return new InputMapping(matrix,customerOffices, mapSize, services, buildingCost);
+	}
+
+	private static Terrain[][] getMatrixFromInput(Scanner sc, int width, int height) throws ValidationException {
+		try {
+			Terrain[][] matrix = new Terrain[height][width];
+			int heightCounter = 0;
+			while (sc.hasNextLine()) {
+
+				String line = sc.nextLine();
+				char[] chars = line.toCharArray();
+				int widthCounter = 0;
+				System.out.println("Scanning line number "+ String.valueOf(heightCounter));
+				for (char ch: chars) {
+					matrix[heightCounter][widthCounter] = Terrain.valueOf(ch);
+					widthCounter = widthCounter + 1;
+				}
+				heightCounter = heightCounter + 1;
+			}
+			return matrix;
+
+		} catch (Exception e) {
+			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+		}
 	}
 
 	private static List<Service> getServices(Scanner sc, int servicesNumber) throws ValidationException {
