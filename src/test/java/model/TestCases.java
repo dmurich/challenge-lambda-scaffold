@@ -22,7 +22,7 @@ public class TestCases {
 
 			long score = SolutionChecker.score(inputMapping, solutionReader);
 			System.out.println(score);
-			Assert.assertEquals(-3, score);
+			Assert.assertEquals(300, score);
 		}
 	}
 
