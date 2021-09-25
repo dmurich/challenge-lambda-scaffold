@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import static exceptions.ValidationException.Category.GENERIC;
+
 public class OutputMapping {
 
     private static final Logger LOGGER = Logger.getLogger(InputMapping.class.getName());
@@ -46,7 +48,33 @@ public class OutputMapping {
             output.add(outputLine);
         }
     }
-    private static OutStruct getOutput(Scanner sc) throws ValidationException {
+    
+    public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {
+        Terrain initialTerrain = map[x][y];
+        int score = 0;
+        for (int i = 0; i < path.length(); i++) {
+            switch (path.charAt(i)) {
+                case 'U':
+                    y++;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'R':
+                    x++;
+                    break;
+                default:
+                    throw new ValidationException(GENERIC, "The wrong symbol in the path. It should be 'R', 'L', 'U' or 'D'");
+            }
+            score += map[x][y].value;
+        }
+        Terrain finalTerrain = map[x][y];
+        return new Score(score);
+    }
+        private static OutStruct getOutput(Scanner sc) throws ValidationException {
         try {
             String [] lines = sc.nextLine().split(" ");
 
@@ -55,7 +83,7 @@ public class OutputMapping {
                     lines[2]);
 
         } catch (Exception e) {
-            throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+            throw new ValidationException(GENERIC, e.getMessage());
         }
 
 
