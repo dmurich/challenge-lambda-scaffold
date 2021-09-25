@@ -22,7 +22,7 @@ public class TestCases {
 
 			long score = SolutionChecker.score(inputMapping, solutionReader);
 			System.out.println(score);
-//			Assert.assertEquals(86833L, score);
+			Assert.assertEquals(-3, score);
 		}
 	}
 
@@ -38,6 +38,21 @@ public class TestCases {
 
 //			long score = SolutionChecker.score(pairContainer, solutionReader);
 //			Assert.assertEquals(86833L, score);
+		}
+	}
+
+	@Test
+	public void scoringTest3() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-03.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-03.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+			System.out.println(score);
+			//Assert.assertEquals(-3, score);
 		}
 	}
 }

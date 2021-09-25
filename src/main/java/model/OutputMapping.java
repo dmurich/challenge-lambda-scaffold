@@ -52,15 +52,17 @@ public class OutputMapping {
     }
     
     public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {
+        x -= 1;
+        y -= 1;
         Terrain initialTerrain = map[x][y];
         int score = 0;
         for (int i = 0; i < path.length(); i++) {
             switch (path.charAt(i)) {
                 case 'U':
-                    y++;
+                    y--;
                     break;
                 case 'D':
-                    y--;
+                    y++;
                     break;
                 case 'L':
                     x--;
