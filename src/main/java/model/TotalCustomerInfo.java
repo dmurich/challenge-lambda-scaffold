@@ -5,10 +5,12 @@ import java.util.List;
 public class TotalCustomerInfo {
     private List<CustomerScore> customerScores;
     private int numberOfOffices;
+    private int customers;
 
-    public TotalCustomerInfo(List<CustomerScore> customerScores, int numberOfOffices) {
+    public TotalCustomerInfo(List<CustomerScore> customerScores, int numberOfOffices, int customers) {
         this.customerScores = customerScores;
         this.numberOfOffices = numberOfOffices;
+        this.customers = customers;
     }
 
     public List<CustomerScore> getCustomerScores() {

@@ -38,6 +38,8 @@ public class OutputMapping {
 
     private static List<CustomerScore> customerCosts = new ArrayList<>();
     private static Set<Point> offices = new HashSet<>();
+    private static Set<Point> customers = new HashSet<>();
+
 //TODO retrieve also the numberofOffices and refactor actual score into cost
     public static TotalCustomerInfo read(InputMapping inputMapping, Reader reader) throws ValidationException {
 
@@ -51,7 +53,7 @@ public class OutputMapping {
             customerCosts.add(customerScore);
             offices.add(new Point(outputLine.positionX, outputLine.positionY));
         }
-        return new TotalCustomerInfo(customerCosts, offices.size());
+        return new TotalCustomerInfo(customerCosts, offices.size(), customers.size());
     }
 
 //    TODO retrieve the cost and the customer we reached
@@ -83,6 +85,7 @@ public class OutputMapping {
             cost += inputMapping.getMatrix()[y][x].value;
         }
         Point customerPoint = new Point (x,y);
+        customers.add(customerPoint);
         return new CustomerScore(cost,
                 Utils.getCustomerReward(inputMapping.getCustomers(),customerPoint),
                 serviceUtils,
