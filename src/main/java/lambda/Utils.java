@@ -30,7 +30,7 @@ public class Utils {
         return distance;
     }
 
-    public static int getServiceUtils(List<InputMapping.Service> services, Point point) throws ValidationException {
+    public static int getServiceUtils(List<InputMapping.Service> services, Point point) {
         for (InputMapping.Service service : services) {
             if (service.x == point.getX() && service.y == point.getY()) {
 

@@ -29,13 +29,9 @@ public class ScoringLambda extends GenericScoringLambda {
 				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(file.decodedInputStream()), StandardCharsets.UTF_8));
 				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(file.decodedStream()), StandardCharsets.UTF_8));
 			) {
-				// ---------------- THIS IS A SAMPLE PROBLEM -------------------
-				// ---- REPLACE THE FOLLOWING CODE WITH YOUR IMPLEMENTATION ----
 
-				// Parse problem input
 				InputMapping inputMapping = InputMapping.read(inputReader);
 
-				// Perform scoring
 				return SolutionChecker.score(inputMapping, solutionReader);
 
 				// -------------------------------------------------------------
