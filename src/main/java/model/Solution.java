@@ -15,25 +15,24 @@ public class Solution {
     private static final Logger LOGGER = Logger.getLogger(Solution.class.getName());
 
     private List<Score> scores;
+    private int numberOfoffices;
 
-    public Solution(List<Score> scores) {
+    public Solution(List<Score> scores, int numberOfoffices) {
         this.scores = scores;
+        this.numberOfoffices = numberOfoffices;
     }
 
     public List<Score> getScores() {
         return scores;
     }
 
-    public void setScores(List<Score> scores) {
-        this.scores = scores;
-    }
 
     public static Solution read(InputMapping inputMapping, Reader reader) throws ValidationException {
         Scanner sc = new Scanner(reader);
         try {
             List<Score> scores = OutputMapping.read(inputMapping,reader);
             sc.close();
-            return new Solution(scores);
+            return new Solution(scores,1);
         } catch(NoSuchElementException | NumberFormatException e) {
             throw new ValidationException(ValidationException.Category.SOLUTION_FORMAT, e.getMessage());
         }
