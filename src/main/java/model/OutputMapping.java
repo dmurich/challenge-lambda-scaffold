@@ -54,7 +54,7 @@ public class OutputMapping {
     public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {
         x -= 1;
         y -= 1;
-        Terrain initialTerrain = map[x][y];
+        Terrain initialTerrain = map[y][x];
         int score = 0;
         for (int i = 0; i < path.length(); i++) {
             switch (path.charAt(i)) {
@@ -73,9 +73,9 @@ public class OutputMapping {
                 default:
                     throw new ValidationException(GENERIC, "The wrong symbol in the path. It should be 'R', 'L', 'U' or 'D'");
             }
-            score += map[x][y].value;
+            score += map[y][x].value;
         }
-        Terrain finalTerrain = map[x][y];
+        Terrain finalTerrain = map[y][x];
         return new Score(score);
     }
         private static OutStruct getOutput(Scanner sc) throws ValidationException {
