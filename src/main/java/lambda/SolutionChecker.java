@@ -60,8 +60,8 @@ public class SolutionChecker {
 			long serviceScore = customerScore.getServiceUtils() - Utils.getDistance(customerScore.getReplyOffice(),customerScore.getCustomerLocation());
 			finalScore = customerLocalScore + serviceScore;
 		}
-
-		return finalScore - totalBuildingCosts;
+//TODO add the bonus
+		return Math.max(finalScore - totalBuildingCosts, 0);
 	}
 
 
