@@ -17,6 +17,15 @@ public class InputMapping {
 		public int y;
 		public int reward;
 
+		@Override
+		public String toString() {
+			return "Customer{" +
+					"x=" + x +
+					", y=" + y +
+					", reward=" + reward +
+					'}';
+		}
+
 		Customer(int x, int y, int reward) {
 			this.x = x;
 			this.y = y;
@@ -27,27 +36,27 @@ public class InputMapping {
 	public static class MapSize {
 		public int width;
 		public int height;
-		public int customerNumber;
+		public int customersNumber;
 		public int maximalDistanceFromService;
-		public int numberOfServices;
+		public int servicesNumber;
 
 		@Override
 		public String toString() {
 			return "MapSize{" +
 					"width=" + width +
 					", height=" + height +
-					", customerNumber=" + customerNumber +
+					", customerNumber=" + customersNumber +
 					", maximalDistanceFromService=" + maximalDistanceFromService +
-					", numberOfServices=" + numberOfServices +
+					", numberOfServices=" + servicesNumber +
 					'}';
 		}
 
 		public MapSize(int width, int height, int customerNumber, int maximalDistanceFromService, int numberOfServices) {
 			this.width = width;
 			this.height = height;
-			this.customerNumber = customerNumber;
+			this.customersNumber = customerNumber;
 			this.maximalDistanceFromService = maximalDistanceFromService;
-			this.numberOfServices = numberOfServices;
+			this.servicesNumber = numberOfServices;
 		}
 	}
 
@@ -73,6 +82,15 @@ public class InputMapping {
 	}
 
 	public static class Service {
+		@Override
+		public String toString() {
+			return "Service{" +
+					"x=" + x +
+					", y=" + y +
+					", utilityValue=" + utilityValue +
+					'}';
+		}
+
 		public int x;
 		public int y;
 		public int utilityValue;
@@ -95,13 +113,21 @@ public class InputMapping {
 //		public static InputMapping read(Reader reader) {
 		Scanner sc = new Scanner(reader);
 
+		System.out.println("parsing map info:");
 		MapSize mapSize = getMapInfo(sc);
-		System.out.println(mapSize);
+		System.out.println(mapSize.toString());
 
+		System.out.println("parsing building costs:");
 		BuildingCost buildingCost = getBuildingCost(sc);
-		System.out.println(buildingCost);
+		System.out.println(buildingCost.toString());
 
-//		List<Customer> customerOffices = getCustomerOffices(sc, mapSize.customerNumber);
+
+		System.out.println("parsing customer offices:");
+		List<Customer> customerOffices = getCustomerOffices(sc, mapSize.customersNumber);
+
+		System.out.println("parsing services:");
+		List<Service> services = getServices(sc, mapSize.servicesNumber);
+
 
 
 //		List<MapSize> mapSize = new ArrayList<MapSize>(length);
@@ -128,25 +154,57 @@ public class InputMapping {
 //		return new InputMapping(mapSize);
 	}
 
-//	private static List<Customer> getCustomerOffices(Scanner sc, int customerNumber) {
-		private static void getCustomerOffices(Scanner sc, int customerNumber) {
+	private static List<Service> getServices(Scanner sc, int servicesNumber) throws ValidationException {
+		List<Service> services = new ArrayList<Service>(servicesNumber);
 
-//		try {
-//
-//			for (int i = 0; i < customerNumber; i++) {
-//				String [] customerInfos = sc.nextLine().split(" ");
-//
-//			}
-//			if (buildingInfos.length != 3) {
-//				throw  new ValidationException(ValidationException.Category.GENERIC, "building cost not equal to 3");
-//			}
-//			return new BuildingCost(Integer.parseInt(buildingInfos[0]),
-//					Integer.parseInt(buildingInfos[1]),
-//					Integer.parseInt(buildingInfos[2]));
-//
-//		} catch (Exception e) {
-//			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
-//		}
+		try {
+
+
+			for (int i = 0; i < servicesNumber; i++) {
+				String [] servicesInfo = sc.nextLine().split(" ");
+
+				if (servicesInfo.length != 3) {
+					throw  new ValidationException(ValidationException.Category.GENERIC, "customer info dimension not equal to 3 at row number: " +String.valueOf(i) );
+				}
+				Service service = new Service(Integer.parseInt(servicesInfo[0]),
+						Integer.parseInt(servicesInfo[1]),
+						Integer.parseInt(servicesInfo[2]));
+				System.out.println("new service: "+ service.toString());
+				services.add(service);
+
+			}
+			return services;
+
+		} catch (Exception e) {
+			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+		}
+	}
+
+	private static List<Customer> getCustomerOffices(Scanner sc, int customerNumber) throws ValidationException {
+		List<Customer> customerOffices = new ArrayList<Customer>(customerNumber);
+
+		try {
+
+
+			for (int i = 0; i < customerNumber; i++) {
+				String [] customerInfos = sc.nextLine().split(" ");
+
+				if (customerInfos.length != 3) {
+					throw  new ValidationException(ValidationException.Category.GENERIC, "customer info dimension not equal to 3 at row number: " +String.valueOf(i) );
+				}
+				Customer customer = new Customer(Integer.parseInt(customerInfos[0]),
+						Integer.parseInt(customerInfos[1]),
+						Integer.parseInt(customerInfos[2]));
+				System.out.println("new customer: "+ customer.toString());
+				customerOffices.add(customer);
+
+
+			}
+			return customerOffices;
+
+		} catch (Exception e) {
+			throw new ValidationException(ValidationException.Category.GENERIC, e.getMessage());
+		}
 	}
 
 	private static BuildingCost getBuildingCost(Scanner sc) throws ValidationException {
