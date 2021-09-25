@@ -1,6 +1,9 @@
 package lambda;
 
 import java.io.Reader;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import exceptions.ValidationException;
@@ -53,26 +56,60 @@ public class SolutionChecker {
 		Solution solution = Solution.read(inputMapping, solutionReader);
 
 		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getTotalCustomerInfo().getNumberOfOffices());
-
+		System.out.println("Building cost"+ String.valueOf(totalBuildingCosts));
 		long finalScore = 0;
-		long totalReward = 0;
-		int customerCounter = 1;
+		Set<Point> replyOffices = new HashSet<>();
+		Set<Point> customerLocation = new HashSet<>();
+
 		for (CustomerScore customerScore : solution.getTotalCustomerInfo().getCustomerScores()) {
-			totalReward = totalReward + customerScore.getCustomerReward();
 			long customerLocalScore = customerScore.getCustomerReward() - customerScore.getCost();
-			long serviceScore = customerScore.getServiceUtils() - Utils.getDistance(customerScore.getReplyOffice(),customerScore.getCustomerLocation(), inputMapping.getMapSize().maximalDistanceFromService);
-
-//			System.out.println("for the customer counter number: "+ customerCounter + " customerLocalScore: "+ customerLocalScore + " serviceScore: "+ serviceScore);
-			System.out.println("for the customer counter number: "+ customerCounter + " serviceUtils: "+ customerScore.getServiceUtils() + " serviceScore: "+ serviceScore);
-
-			customerCounter = customerCounter + 1;
-			finalScore = customerLocalScore + serviceScore;
+			replyOffices.add(customerScore.getReplyOffice());
+			customerLocation.add(customerScore.getCustomerLocation());
+			finalScore = finalScore + customerLocalScore;
 		}
+
+
+		int servicesScore = 0;
+		System.out.println(replyOffices);
+		Iterator<Point> it = replyOffices.iterator();
+		while(it.hasNext()){
+			Point replyOffice = it.next();
+
+			for (InputMapping.Service service : inputMapping.getServices()) {
+				System.out.println(replyOffice);
+				System.out.println(service);
+				System.out.println("|"+replyOffice.getX()+"-"+service.x+"|,|"+replyOffice.getY()+"-"+service.y+"|");
+				System.out.println("distance evaluation: "+ String.valueOf( Utils.getDistance(replyOffice, new Point(service.x, service.y))));
+				System.out.println("service Utility: "+ service.utilityValue);
+				int distance = Utils.getDistance(replyOffice, new Point(service.x, service.y));
+				int localServiceScore = service.utilityValue - distance;
+				if (distance > inputMapping.getMapSize().maximalDistanceFromService) {
+					localServiceScore = 0;
+				}
+				System.out.println("local service score: "+ localServiceScore);
+				servicesScore = servicesScore + localServiceScore;
+
+			}
+		}
+
+
+
+		long bonus = evaluateTheBonus(customerLocation,inputMapping);
+		System.out.println("Bonus "+ String.valueOf(bonus));
+		System.out.println("Final Score "+ finalScore);
+		return Math.max(finalScore - totalBuildingCosts + bonus + servicesScore, 0);
+	}
+
+	private static long evaluateTheBonus(Set<Point> customerLocation, InputMapping inputMapping) throws ValidationException {
 		long bonus = 0;
-		if (solution.getTotalCustomerInfo().getNumberOfCustomers() == inputMapping.getMapSize().customersNumber){
-			bonus = totalReward;
+		if (customerLocation.size() == inputMapping.getMapSize().customersNumber) {
+			Iterator<Point> it = customerLocation.iterator();
+			while(it.hasNext()) {
+				Point customer = it.next();
+				bonus = bonus + Utils.getCustomerReward(inputMapping.getCustomers(),customer);
+			}
 		}
-		return Math.max(finalScore - totalBuildingCosts + bonus, 0);
+		return bonus;
 	}
 
 

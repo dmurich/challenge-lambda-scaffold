@@ -16,19 +16,20 @@ public class Utils {
         throw new ValidationException(ValidationException.Category.GENERIC, "NO CUSTOMER FOUND IN THIS POSITION");
     }
 
-    public static int getDistance(Point p1, Point p2, long maximalDistance) throws ValidationException {
+    public static int getDistance(Point p1, Point p2) {
+
         int v1 = Math.abs(p1.getX()-p2.getX());
         int v2 = Math.abs(p1.getY()-p2.getY());
         int distance = Math.max(v1,v2);
-//        if (distance < maximalDistance) {
-//            throw new ValidationException(ValidationException.Category.CONSTRAINTS, "Distance too long");
-//        }
+
+
         return distance;
     }
 
     public static int getServiceUtils(List<InputMapping.Service> services, Point point) throws ValidationException {
         for (InputMapping.Service service : services) {
             if (service.x == point.getX() && service.y == point.getY()) {
+
                 return service.utilityValue;
             }
         }

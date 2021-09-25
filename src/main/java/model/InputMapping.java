@@ -176,6 +176,7 @@ public class InputMapping {
 
 		LOGGER.info(LogPrefix+"parsing services:");
 		List<Service> services = getServices(sc, mapSize.servicesNumber);
+		System.out.println(services);
 
 		LOGGER.info(LogPrefix+ "Evaluating map:");
 		Terrain[][] matrix = getMatrixFromInput(sc, mapSize.width, mapSize.height);

@@ -1,11 +1,26 @@
 package model;
 
+import java.util.Objects;
+
 public class CustomerScore {
     private long cost;
     private long customerReward;
     private long serviceUtils;
     private Point replyOffice;
     private Point customerLocation;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerScore that = (CustomerScore) o;
+        return cost == that.cost && customerReward == that.customerReward && serviceUtils == that.serviceUtils && Objects.equals(replyOffice, that.replyOffice) && Objects.equals(customerLocation, that.customerLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cost, customerReward, serviceUtils, replyOffice, customerLocation);
+    }
 
     public CustomerScore(long cost, long customerReward, long serviceUtils, Point replyOffice, Point customerLocation) {
         this.cost = cost;

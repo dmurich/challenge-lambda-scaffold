@@ -36,7 +36,15 @@ public class UtilsTestCases {
 	public void getDistance() throws ValidationException {
 		Point p1 = new Point(2,3);
 		Point p2 = new Point(7,9);
-		System.out.println(Utils.getDistance(p1,p2, 10));
+		System.out.println(Utils.getDistance(p1,p2));
+
+	}
+
+	@Test
+	public void getDistance2() throws ValidationException {
+		Point p1 = new Point(2,5);
+		Point p2 = new Point(3,1);
+		System.out.println(Utils.getDistance(p1,p2));
 
 	}
 
