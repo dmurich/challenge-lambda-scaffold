@@ -32,8 +32,8 @@ public class TestCases {
 				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-01.txt")), StandardCharsets.UTF_8));
 				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-00.txt")), StandardCharsets.UTF_8));
 		) {
-//			PairContainer pairContainer = InputMapping.read(inputReader);
-			InputMapping.read(inputReader);
+			InputMapping inputMapping = InputMapping.read(inputReader);
+			SolutionChecker.validate(inputMapping,solutionReader);
 
 //			long score = SolutionChecker.score(pairContainer, solutionReader);
 //			Assert.assertEquals(86833L, score);

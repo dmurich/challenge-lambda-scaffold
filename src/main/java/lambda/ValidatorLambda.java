@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
+import model.InputMapping;
 import org.apache.commons.io.input.BOMInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +35,11 @@ public class ValidatorLambda extends GenericValidationLambda {
 				// ---- REPLACE THE FOLLOWING CODE WITH YOUR IMPLEMENTATION ----
 
 				// Parse problem input
-				PairContainer pairContainer = PairContainer.read(inputReader);
+				InputMapping inputMapping = InputMapping.read(inputReader);
 
 				// Perform validation. The validation routine is successful
 				// if it doesn't throw exceptions
-				SolutionChecker.validate(pairContainer, solutionReader);
+				SolutionChecker.validate(inputMapping, solutionReader);
 
 				// If no exception is raised, validation is successful
 				return null;
