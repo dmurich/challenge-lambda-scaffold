@@ -31,17 +31,11 @@ public class ValidatorLambda extends GenericValidationLambda {
 				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(file.decodedInputStream()), StandardCharsets.UTF_8));
 				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(file.decodedStream()), StandardCharsets.UTF_8));
 			) {
-				// ---------------- THIS IS A SAMPLE PROBLEM -------------------
-				// ---- REPLACE THE FOLLOWING CODE WITH YOUR IMPLEMENTATION ----
 
-				// Parse problem input
 				InputMapping inputMapping = InputMapping.read(inputReader);
 
-				// Perform validation. The validation routine is successful
-				// if it doesn't throw exceptions
 				SolutionChecker.validate(inputMapping, solutionReader);
 
-				// If no exception is raised, validation is successful
 				return null;
 
 				// -------------------------------------------------------------

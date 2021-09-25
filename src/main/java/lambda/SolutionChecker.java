@@ -33,16 +33,16 @@ public class SolutionChecker {
 	}
 
 	private static void checkConstraints(InputMapping inputMapping) throws ValidationException {
-		if (inputMapping.getCustomers().size() > 500 || inputMapping.getCustomers().size() < 0 ) {
+		if (inputMapping.getCustomers().size() > 500 || inputMapping.getCustomers().size() <= 0 ) {
 			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " Customer number not regular");
 		}
-		if (inputMapping.getMapSize().width > 2000 || inputMapping.getMapSize().width < 0 ) {
+		if (inputMapping.getMapSize().width > 2000 || inputMapping.getMapSize().width <= 0 ) {
 			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " width of the matrix not regular");
 		}
-		if (inputMapping.getMapSize().height > 2000 || inputMapping.getMapSize().height < 0 ) {
+		if (inputMapping.getMapSize().height > 2000 || inputMapping.getMapSize().height <= 0 ) {
 			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " height of the matrix not regular");
 		}
-		if (inputMapping.getMapSize().maximalDistanceFromService > 2000 || inputMapping.getMapSize().maximalDistanceFromService < 0 ) {
+		if (inputMapping.getMapSize().maximalDistanceFromService > 2000 || inputMapping.getMapSize().maximalDistanceFromService <= 0 ) {
 			throw  new ValidationException(ValidationException.Category.CONSTRAINTS, " distance to service not regular");
 		}
 	}
