@@ -1,11 +1,6 @@
 package lambda;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
 import java.util.logging.Logger;
 
 import exceptions.ValidationException;
@@ -59,7 +54,7 @@ public class SolutionChecker {
 
 		int totalBuildingCosts = Utils.getTotalBuildingCosts(inputMapping,solution.getNumberOfoffices());
 		long finalScore = 0;
-		for (Score score : solution.getScores()) {
+		for (CustomerScore score : solution.getScores()) {
 
 			finalScore = finalScore + score.getScore();
 		}

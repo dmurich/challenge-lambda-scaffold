@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.ValidationException;
+import lambda.Utils;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -37,26 +38,26 @@ public class OutputMapping {
         }
     }
 
-    private static List<Score> scores = new ArrayList<>();
+    private static List<CustomerScore> customerCosts = new ArrayList<>();
 //TODO retrieve also the numberofOffices and refactor actual score into cost
-    public static List<Score> read(InputMapping inputMapping, Reader reader) throws ValidationException {
+    public static List<CustomerScore> read(InputMapping inputMapping, Reader reader) throws ValidationException {
         Scanner sc = new Scanner(reader);
 
         OutStruct outputLine;
         while (sc.hasNextLine()) {
             outputLine = getOutput(sc);
             System.out.println(outputLine);
-            Score score = travelThePath(outputLine.path, inputMapping.getMatrix(), outputLine.positionX, outputLine.positionY);
-            scores.add(score);
+            CustomerScore customerScore = travelThePath(outputLine.path, inputMapping, outputLine.positionX, outputLine.positionY);
+            customerCosts.add(customerScore);
         }
-        return scores;
+        return customerCosts;
     }
 
 //    TODO retrieve the cost and the customer we reached
-    public static Score travelThePath(String path, Terrain[][] map, int x, int y) throws ValidationException {
+    public static CustomerScore travelThePath(String path, InputMapping inputMapping, int x, int y) throws ValidationException {
 
-        checkMountain(x, y, map);
-        int score = 0;
+        checkMountain(x, y, inputMapping.getMatrix());
+        int cost = 0;
         for (int i = 0; i < path.length(); i++) {
             switch (path.charAt(i)) {
                 case 'U':
@@ -74,10 +75,10 @@ public class OutputMapping {
                 default:
                     throw new ValidationException(GENERIC, "The wrong symbol in the path. It should be 'R', 'L', 'U' or 'D'");
             }
-            checkMountain(x, y, map);
-            score += map[y][x].value;
+            checkMountain(x, y, inputMapping.getMatrix());
+            cost += inputMapping.getMatrix()[y][x].value;
         }
-        return new Score(score);
+        return new CustomerScore(cost, Utils.getCustomerReward(inputMapping.getCustomers(),new Point(x,y)));
     }
     public static void checkMountain(int x, int y, Terrain[][] map) throws ValidationException {
         if (map[y][x] == Terrain.Mountains) {
