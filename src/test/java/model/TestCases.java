@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.ValidationException;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -50,6 +51,36 @@ public class TestCases {
 		try (
 				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-03.txt")), StandardCharsets.UTF_8));
 				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-03.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+			System.out.println(score);
+			//Assert.assertEquals(-3, score);
+		}
+	}
+
+	@Test(expected = ValidationException.class)
+	public void scoringTest4() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-05.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-04.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+			System.out.println(score);
+			//Assert.assertEquals(-3, score);
+		}
+	}
+
+	@Test(expected = ValidationException.class)
+	public void scoringTest5() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-05.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-05.txt")), StandardCharsets.UTF_8));
 		) {
 			InputMapping inputMapping = InputMapping.read(inputReader);
 
