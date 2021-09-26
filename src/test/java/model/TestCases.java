@@ -60,6 +60,21 @@ public class TestCases {
 	}
 
 	@Test
+	public void scoringCustomerEqualOffice() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-06.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-05.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+			System.out.println(score);
+			//Assert.assertEquals(-3, score);
+		}
+	}
+
+	@Test
 	public void testSet() throws Exception {
 		Set<Point> offices = new HashSet<>();
 		offices.add(new Point(1,1));

@@ -84,6 +84,7 @@ public class OutputMapping {
             cost += inputMapping.getMatrix()[y][x].value;
         }
         Point customerPoint = new Point (x,y);
+        checkIdentity(replyOffice,customerPoint);
         customers.add(customerPoint);
         return new CustomerScore(cost,
                 Utils.getCustomerReward(inputMapping.getCustomers(),customerPoint),
@@ -91,6 +92,13 @@ public class OutputMapping {
                 replyOffice,
                 customerPoint);
     }
+
+    private static void checkIdentity(Point replyOffice, Point customerPoint) throws ValidationException {
+        if (replyOffice.getY() == customerPoint.getY() && replyOffice.getX() == customerPoint.getX()){
+            throw new ValidationException(GENERIC, "the starting point is the same of the office");
+        }
+    }
+
     public static void checkMountain(int x, int y, Terrain[][] map) throws ValidationException {
         if (map[y][x] == Terrain.Mountains) {
             throw new ValidationException(CONSTRAINTS, "Faced a mountain during the way");
