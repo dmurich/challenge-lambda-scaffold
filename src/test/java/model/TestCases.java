@@ -15,7 +15,7 @@ import lambda.SolutionChecker;
 
 public class TestCases {
 
-	@Test
+	@Test(expected = ValidationException.class)
 	public void scoringTest() throws Exception {
 		ClassLoader classLoader = getClass().getClassLoader();
 		try (
@@ -56,7 +56,7 @@ public class TestCases {
 
 			long score = SolutionChecker.score(inputMapping, solutionReader);
 			System.out.println(score);
-			//Assert.assertEquals(-3, score);
+			Assert.assertEquals(3209, score);
 		}
 	}
 
@@ -90,18 +90,17 @@ public class TestCases {
 		}
 	}
 
-	@Test
+	@Test(expected = ValidationException.class)
 	public void scoringCustomerEqualOffice() throws Exception {
 		ClassLoader classLoader = getClass().getClassLoader();
 		try (
 				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-06.txt")), StandardCharsets.UTF_8));
-				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-05.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-06.txt")), StandardCharsets.UTF_8));
 		) {
 			InputMapping inputMapping = InputMapping.read(inputReader);
 
 			long score = SolutionChecker.score(inputMapping, solutionReader);
-			System.out.println(score);
-			//Assert.assertEquals(-3, score);
+
 		}
 	}
 
