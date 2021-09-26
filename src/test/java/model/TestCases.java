@@ -113,4 +113,46 @@ public class TestCases {
 		offices.add(new Point(100000,100000));
 		System.out.println(offices);
 	}
+
+	@Test(expected = ValidationException.class)
+	public void nullPointerExecptionTest() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-07.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-07.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+
+		}
+	}
+
+	@Test(expected = ValidationException.class)
+	public void notIntTest() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-08.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-08.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+
+		}
+	}
+
+	@Test(expected = ValidationException.class)
+	public void officeOutsideMap() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		try (
+				Reader inputReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("input-09.txt")), StandardCharsets.UTF_8));
+				Reader solutionReader = new BufferedReader(new InputStreamReader(new BOMInputStream(classLoader.getResourceAsStream("solution-09.txt")), StandardCharsets.UTF_8));
+		) {
+			InputMapping inputMapping = InputMapping.read(inputReader);
+
+			long score = SolutionChecker.score(inputMapping, solutionReader);
+
+		}
+	}
 }

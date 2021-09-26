@@ -47,19 +47,23 @@ public class OutputMapping {
         Scanner sc = new Scanner(reader);
 
         OutStruct outputLine;
+        try {
         while (sc.hasNextLine()) {
             outputLine = getOutput(sc);
             System.out.println(outputLine);
             CustomerScore customerScore = travelThePath(outputLine.path, inputMapping, outputLine.positionX, outputLine.positionY);
             customerCosts.add(customerScore);
             offices.add(new Point(outputLine.positionX, outputLine.positionY));
+        }}
+        catch (Exception e) {
+            throw new ValidationException(GENERIC,e.getMessage());
         }
         return new EnvironmentCollector(customerCosts, offices, customers);
     }
 
-//    TODO retrieve the cost and the customer we reached
     public static CustomerScore travelThePath(String path, InputMapping inputMapping, int x, int y) throws ValidationException {
         Point replyOffice = new Point(x,y);
+//        Utils.checkPointInMap(replyOffice,inputMapping.getMapSize());
         checkMountain(x, y, inputMapping.getMatrix());
         long cost = 0;
         long serviceUtils = 0;
@@ -86,6 +90,7 @@ public class OutputMapping {
             cost += inputMapping.getMatrix()[y][x].value;
         }
         Point customerPoint = new Point (x,y);
+//        Utils.checkPointInMap(customerPoint,inputMapping.getMapSize());
         checkIdentity(replyOffice,customerPoint);
         CustomerVSReply customerVSReply = new CustomerVSReply(customerPoint, replyOffice, path);
         if (customerVSReplyList.contains(customerVSReply)) {

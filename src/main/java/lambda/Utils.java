@@ -1,10 +1,7 @@
 package lambda;
 
 import exceptions.ValidationException;
-import model.CustomerScore;
-import model.EnvironmentCollector;
-import model.InputMapping;
-import model.Point;
+import model.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -94,4 +91,14 @@ public class Utils {
             }
             return bonus;
     }
+
+    public static void checkPointInMap(Point point,InputMapping.MapSize mapSize ) throws ValidationException {
+        if (point.getX() < 0 || point.getY() < 0) {
+            throw new ValidationException(ValidationException.Category.SOLUTION_FORMAT, "Point not in map");
+        }
+        if (point.getX() > mapSize.width || point.getY() > mapSize.height) {
+            throw  new ValidationException(ValidationException.Category.SOLUTION_FORMAT, "Point not in map");
+        }
+    }
+
 }
