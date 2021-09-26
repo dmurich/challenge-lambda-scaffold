@@ -40,6 +40,8 @@ public class OutputMapping {
     private static Set<Point> offices = new HashSet<>();
     private static Set<Point> customers = new HashSet<>();
 
+    private static List<CustomerVSReply> customerVSReplyList = new ArrayList<>();
+
     public static EnvironmentCollector read(InputMapping inputMapping, Reader reader) throws ValidationException {
 
         Scanner sc = new Scanner(reader);
@@ -85,6 +87,12 @@ public class OutputMapping {
         }
         Point customerPoint = new Point (x,y);
         checkIdentity(replyOffice,customerPoint);
+        CustomerVSReply customerVSReply = new CustomerVSReply(customerPoint, replyOffice, path);
+        if (customerVSReplyList.contains(customerVSReply)) {
+            throw new ValidationException(GENERIC, "there is already a path from this reply office to the specific customer.");
+        } else {
+            customerVSReplyList.add(customerVSReply);
+        }
         customers.add(customerPoint);
         return new CustomerScore(cost,
                 Utils.getCustomerReward(inputMapping.getCustomers(),customerPoint),
